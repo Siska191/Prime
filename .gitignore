@@ -1,0 +1,6 @@
+# Ignore
+/punishments/
+/node_modules/
+/guilds/
+/config.json
+/auth.json
