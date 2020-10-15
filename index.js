@@ -95,6 +95,26 @@ client.on('guildMemberAdd', member=>{
     if(member.user.bot) return;
     let i = require(`./guilds/${member.guild.id}.json`)
     let welcomeMessage = i.welcomeMessage
-    let goodbyeMessage = i.goodbyeMessage
+    let ch = member.guild.channels.cache.get(i.welcomeChannelID)
+    if(!ch) return
+    let edit1 = welcomeMessage.replace('%GUILD%', member.guild.name)
+    let edit2 = edit1.replace('%USERNAME%', member.user.username)
+    let edit3 = edit2.replace('%TAG%', member.user.tag)
+    let msg = edit3.replace('%MENTION%', member.toString())
+    ch.send(msg)
+    
+})
+
+client.on('guildMemberAdd', member=>{
+    if(member.user.bot) return;
+    let i = require(`./guilds/${member.guild.id}.json`)
+    let goodbyeMessage = i.welcomeMessage
+    let ch = member.guild.channels.cache.get(i.goodbyeChannelID)
+    if(!ch) return
+    let edit1 = goodbyeMessage.replace('%GUILD%', member.guild.name)
+    let edit2 = edit1.replace('%USERNAME%', member.user.username)
+    let edit3 = edit2.replace('%TAG%', member.user.tag)
+    let msg = edit3.replace('%MENTION%', member.toString())
+    ch.send(msg)
     
 })
