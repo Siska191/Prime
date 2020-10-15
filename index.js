@@ -92,7 +92,6 @@ client.on('guildDelete', async (guild)=>{
 })
 
 client.on('guildMemberAdd', member=>{
-    if(member.user.bot) return;
     let i = require(`./guilds/${member.guild.id}.json`)
     let welcomeMessage = i.welcomeMessage
     let ch = member.guild.channels.cache.get(i.welcomeChannelID)
@@ -106,9 +105,8 @@ client.on('guildMemberAdd', member=>{
 })
 
 client.on('guildMemberRemove', member=>{
-    if(member.user.bot) return;
     let i = require(`./guilds/${member.guild.id}.json`)
-    let goodbyeMessage = i.welcomeMessage
+    let goodbyeMessage = i.goodbyeMessage
     let ch = member.guild.channels.cache.get(i.goodbyeChannelID)
     if(!ch) return
     let edit1 = goodbyeMessage.replace('%GUILD%', member.guild.name)

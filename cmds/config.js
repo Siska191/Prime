@@ -36,11 +36,18 @@ module.exports = async (message, args, i) => {
     }
 
     if(cmd == 'welcomeMessage') {
-        //
+        let msg = args.slice(1).join(' ')
+        if(!msg) return message.channel.send('Supply a message')
+        i.welcomeMessage = msg
+        fs.writeFileSync(`guilds/${message.guild.id}.json`, JSON.stringify(i, null, '\t'))
+        return message.channel.send(`Set the message to \` ${msg} \``)
     }
     if(cmd == 'goodbyeMessage') {
-        let message = args[1]
+        let msg = args.slice(1).join(' ')
         if(!message) return message.channel.send('Supply a message')
+        i.goodbyeMessage = msg
+        fs.writeFileSync(`guilds/${message.guild.id}.json`, JSON.stringify(i, null, '\t'))
+        return message.channel.send(`Set the message to \` ${msg} \``)
     }
 
 }

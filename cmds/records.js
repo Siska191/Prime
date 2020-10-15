@@ -11,7 +11,7 @@ module.exports = async (message, args, i) => {
                 return console.log(err)
             files.forEach(file => {
                 let f = require(`../punishments/${file}`)
-                if(!f.id == i) return message.channel.send('Could not match a file with that id!')
+                if(!f.id == i || !file.includes(`${message.guild.id}`)) return message.channel.send('Could not match a file with that id in your guild!')
                 if(f.id == i) { fs.unlinkSync(`punishments/${file}`); message.channel.send('Deleted punishment from dictionary!') }
             })
         })
