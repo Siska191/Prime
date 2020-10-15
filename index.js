@@ -105,7 +105,7 @@ client.on('guildMemberAdd', member=>{
     
 })
 
-client.on('guildMemberAdd', member=>{
+client.on('guildMemberRemove', member=>{
     if(member.user.bot) return;
     let i = require(`./guilds/${member.guild.id}.json`)
     let goodbyeMessage = i.welcomeMessage
