@@ -22,6 +22,9 @@ module.exports = async (message, args, i) => {
     Custom Goodbye Message: ${i.goodbyeMessage}
     Muted Role: ${i.mutedRole}
     `)
-    .addField(':x: Commands are still being made!')
+    .addField('Server Config', 'config [cmd]')
+    .addField('Temp Mute', 'tempmute <user> <time> [reason]')
+    .addField('Member Warn', 'warn <user> [reason]')
+    .addField('Punishment Records', 'records [user]')
     message.channel.send(embed)
 }

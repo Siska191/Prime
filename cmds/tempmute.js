@@ -1,5 +1,6 @@
 const ms = require('ms')
 const { MessageEmbed } = require('discord.js')
+const fs = require('fs')
 
 module.exports = async (message, args, i) => {
     const delay = (msec) => new Promise((resolve) => setTimeout(resolve, msec));
@@ -17,6 +18,26 @@ module.exports = async (message, args, i) => {
     message.channel.send(`Muted ${user.toString()} for **${reason}** this mute will expire in \`${time}\``)
     await user.roles.set([mutedRole.id])
     user.user.send(`You have been muted for **${time}** with the reason of **${reason}**`)
+    let getId = () => {
+        let s4 = () => {
+            return Math.floor((1 + Math.random()) * 0x10000)
+                .toString(16)
+                .substring(1);
+        }
+        //return id of format 'aaaaaaaa'-'aaaa'-'aaaa'-'aaaa'-'aaaaaaaaaaaa'
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+    }
+    let punishmentId = getId()
+    let fileId = Math.floor(Math.random(1) * 5000)
+    // Syntax = "<guildId>-<userId>"
+    let defualtSyntax = {
+        "id":punishmentId,
+        "reason":reason,
+        "author":message.author.id,
+        "user":user.user.id,
+        "type":"tempmute"
+    }
+    fs.writeFileSync(`punishments/${message.guild.id}-${user.user.id}-${fileId}.json`, JSON.stringify(defualtSyntax, null, "\t"))
     await delay(ms(time))
     message.channel.send(`${user.user.username} has been unmuted`)
     user.roles.set(memberRoles)
