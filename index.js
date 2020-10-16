@@ -2,7 +2,6 @@ const Discord = require('discord.js')
 const client = new Discord.Client()
 const ms = require('ms')
 const { MessageEmbed, Collection } = require('discord.js')
-const mutes = new Collection()
 const { prefix, token } = require('./config.json')
 const info = require('./auth.json')
 const fs = require('fs')
@@ -26,7 +25,7 @@ client.on('message', async (message)=>{
     if(!parse) return
     let cmd = require(`./cmds/${command}.js`)
     try {
-        cmd(message, args, i, mutes)
+        cmd(message, args, i)
     } catch (err){
         return message.channel.send('There was an error executing the command: ' + err)
     }

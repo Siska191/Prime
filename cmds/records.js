@@ -29,8 +29,8 @@ module.exports = async (message, args, i) => {
         files.forEach(file => {
             if(file.includes(user.user.id) && file.includes(message.guild.id)) {
                 let req = require(`../punishments/${file}`)
-                embed.addField(`User ID: \`${req.user}\`, Type: \`${req.type}\`, Moderator ID: \`${req.author}\`, Reason: \`${req.reason}\``, `Punishment ID: \`${req.id}\``)
-        }
+                embed.addField(`User Punished ID: ${req.user} Moderator ID: ${req.author} Reason: \`${req.reason}\` Type: \`${req.type}\``, `Punishment ID: \`${req.id}\``)
+            }
     })
     message.channel.send(embed)
 })}
